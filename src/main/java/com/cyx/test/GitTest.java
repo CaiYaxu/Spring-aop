@@ -12,6 +12,8 @@ public class GitTest {
         System.out.println("hot-fix 分支增加");
 
         System.out.println("在master分支进行了修改");
+
+        System.out.println("这是一个fix-host分支修改");
     }
 
 }
