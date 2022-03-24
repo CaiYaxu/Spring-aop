@@ -8,6 +8,8 @@ public class GitTest {
         System.out.println("git管理项目文件进行了修改");
 
         System.out.println("再次修改了git文件");
+
+        System.out.println("hot-fix 分支增加");
     }
 
 }
