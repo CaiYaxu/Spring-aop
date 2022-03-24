@@ -10,6 +10,8 @@ public class GitTest {
         System.out.println("再次修改了git文件");
 
         System.out.println("hot-fix 分支增加");
+
+        System.out.println("在master分支进行了修改");
     }
 
 }
