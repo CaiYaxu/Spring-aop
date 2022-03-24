@@ -6,6 +6,8 @@ public class GitTest {
         System.out.println("测试git");
 
         System.out.println("git管理项目文件进行了修改");
+
+        System.out.println("再次修改了git文件");
     }
 
 }
