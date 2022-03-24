@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+">
+
+<!--    1.目标类-->
+<!--    <bean id="userDao" class="com.cyx.impl.UserDaoImpl"/>-->
+<!--    2.切面类-->
+    <bean id="myAspect" class="com.cyx.factorybean.AspectBean"/>
+<!--    3.使用spring代理工厂定义一个名称为userDaoProxy的代理对象-->
+    <bean id="userDaoProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+
+        <!--    3.1.指定代理实现接口-->
+        <property name="proxyInterfaces" value="com.cyx.jdk.UserDao"/>
+        <!--    3.2.制定目标对象-->
+        <property name="target" ref="userDao"/>
+        <!--    3.3.指定切面，植入环绕通知 -->
+        <property name="interceptorNames" value="myAspect"/>
+        <!--    3.4.指定代理方式，true:使用cglib，false(默认):使用jdk动态代理 -->
+        <property name="proxyTargetClass" value="true"/>
+
+    </bean>
+
+<!--    AspectJ切面-->
+    <bean id="myAspectJ" class="com.cyx.aspectJ.MyAspect" />
+<!--    aop编程-->
+    <aop:config>
+<!--        配置切面-->
+        <aop:aspect ref="myAspectJ">
+            <!--        配置切入点，通知最后增强那些方法-->
+            <aop:pointcut id="mypointCut" expression="execution(* com.cyx.impl.*.*(..))" />
+            <!--  关联通知Advice和切入点          -->
+            <aop:before method="myBefore" pointcut-ref="mypointCut" />
+            <aop:after-returning method="myAfterReturning" pointcut-ref="mypointCut" returning="joinPoint"/>
+            <aop:around method="myAround" pointcut-ref="mypointCut"/>
+            <aop:after-throwing method="myAfterThrowing" pointcut-ref="mypointCut" throwing="e"/>
+            <aop:after method="myAfter" pointcut-ref="mypointCut"/>
+        </aop:aspect>
+
+    </aop:config>
+
+<!--    扫描包-->
+    <context:component-scan base-package="com.cyx.annotation"/>
+    <context:component-scan base-package="com.cyx.impl"/>
+<!--    启动声明式注解-->
+    <aop:aspectj-autoproxy/>
+
+</beans>
