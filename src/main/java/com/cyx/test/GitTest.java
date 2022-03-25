@@ -14,6 +14,9 @@ public class GitTest {
         System.out.println("在master分支进行了修改");
 
         System.out.println("这是一个fix-host分支修改");
+
+        System.out.println("对该项目文件进行了一次修改");
+        System.out.println("推送到本地库");
     }
 
 }
