@@ -17,6 +17,8 @@ public class GitTest {
 
         System.out.println("对该项目文件进行了一次修改");
         System.out.println("推送到本地库");
+        
+        System.out.println("对远程库文件进行了一次修改");
     }
 
 }
